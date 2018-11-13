@@ -33,7 +33,7 @@ import org.jdbi.v3.core.generic.GenericTypes;
 import org.jdbi.v3.core.mapper.reflect.ColumnName;
 import org.jdbi.v3.core.statement.UnableToCreateStatementException;
 
-public class BeanTaster implements Function<Type, Optional<PojoProperties<?>>> {
+public class BeanTaster implements Function<Type, Optional<? extends PojoProperties<?>>> {
 
     private static final String TYPE_NOT_INSTANTIABLE =
         "A bean, %s, was mapped which was not instantiable";
@@ -48,7 +48,7 @@ public class BeanTaster implements Function<Type, Optional<PojoProperties<?>>> {
         "Invocation target exception trying to invoker setter for the %s property";
 
     @Override
-    public Optional<PojoProperties<?>> apply(Type t) {
+    public Optional<? extends PojoProperties<?>> apply(Type t) {
         // BeanTaster is the fallback and throws rather than chaining on.
         return Optional.of(new BeanPojoProperties<>(t));
     }
